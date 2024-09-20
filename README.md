@@ -4,11 +4,18 @@ A simple, thread-safe, and extremely fast progress bar inspired by [gipert/progr
 
 ## Features
 
+- Header-only
 - Thread-safe (almost lock-free)
 - Minimal overhead
 - Easy to customize
-- Easy to integrate
 
+## BuildExample
+
+```cmake
+mkdir build
+cd build
+cmake ..
+```
 
 ## Usage
 
