@@ -2,6 +2,8 @@
 
 A simple, thread-safe, and extremely fast progress bar inspired by [gipert/progressbar](https://github.com/gipert/progressbar).
 
+![progressbar](./progressbar.gif)
+
 ## Features
 
 - Header-only
