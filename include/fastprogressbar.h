@@ -13,7 +13,6 @@
 #include <sstream>
 #include <atomic>
 #include <mutex>
-#include <algorithm>
 
 class fastprogressbar
 {
@@ -193,7 +192,15 @@ inline void fastprogressbar::reset()
 
 inline void fastprogressbar::set_bar_style(int style)
 {
-    m_barStyle = std::clamp(style, 0, s_bar_style_count - 1);
+    m_barStyle = style;
+    if (m_barStyle < 0)
+    {
+        m_barStyle = 0;
+    }
+    else if (m_barStyle >= s_bar_style_count)
+    {
+        m_barStyle = s_bar_style_count - 1;
+    }
 }
 
 inline void fastprogressbar::set_niter(int niter)
@@ -203,7 +210,7 @@ inline void fastprogressbar::set_niter(int niter)
 
 inline void fastprogressbar::update()
 {
-    if (0 == m_cycles)
+    if (0 >= m_cycles)
     {
         return;
     }
@@ -211,7 +218,11 @@ inline void fastprogressbar::update()
     int old_progress = m_progress.fetch_add(1, std::memory_order::memory_order_relaxed);
 
     // compute percentage, return if it is not changed
-    int perc = std::clamp(int((old_progress + 1) * 100.0f / m_cycles), 0, 100);
+    int perc = (old_progress + 1) * 100.0f / m_cycles;
+    if (perc > 100)
+    {
+        perc = 100;
+    }
 
     int old_last_perc = m_lastPerc.load(std::memory_order::memory_order_relaxed);
     if (perc <= old_last_perc)
