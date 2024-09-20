@@ -46,12 +46,12 @@ static void test_multi_thread()
 
 int main()
 {
-    cout << "Test single thread:" << endl;
+    cout << "single thread:" << endl;
     test_single_thread();
 
     cout << endl;
 
-    cout << "Test multi thread:" << endl;
+    cout << "multi thread:" << endl;
     test_multi_thread();
 
     return 0;
